@@ -70,7 +70,10 @@ $ yarn install
 # Execute o módulo de submissão utilizando a seguinte sintaxe
 $ yarn start "SABOR DA PIZZA" "ENDEREÇO DE ENTREGA"
 
-# Se você já estiver rodando o módulo Pizzaria, basta acessar o endereço <http://localhost:8080> que você verá as notificações enviadas por meio deste projeto na página web. A cada execução deste projeto (e envio de um novo pedido) será mostrada uma nova notificação no painel da página web.
+# Se você já estiver rodando o módulo Pizzaria, basta acessar o endereço <http://localhost:8080>
+# que você verá as notificações enviadas por meio deste projeto na página web. A cada execução
+# deste projeto (e envio de um novo pedido) será mostrada uma nova notificação no painel da
+# página web.
 ```
 
 ---
