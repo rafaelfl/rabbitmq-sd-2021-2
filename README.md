@@ -2,7 +2,7 @@
 
 ![License](https://img.shields.io/badge/license-MIT-brightgreen)
 
-## Sobre
+## About
 
 <p align="center">Small educational project developed to present the concepts of messaging with RabbitMQ middleware for the Distributed Systems course (2021.2) of the Computer Engineering course - UFMA</p>
 
