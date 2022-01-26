@@ -1,86 +1,91 @@
-# Rabbit Pizza (módulo Submissão de Pedidos)
+# Rabbit Pizza (Order Submission module)
 
-![Licença](https://img.shields.io/badge/license-MIT-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-brightgreen)
 
 ## Sobre
 
-<p align="center">Pequeno projeto com caráter educacional desenvolvido para apresentar os conceitos de mensageria com o *middleware* RabbitMQ para a disciplina de Sistemas Distribuídos (2021.2) do curso de Engenharia da Computação - UFMA. </p>
+<p align="center">Small educational project developed to present the concepts of messaging with RabbitMQ middleware for the Distributed Systems course (2021.2) of the Computer Engineering course - UFMA</p>
 
 
-## Tabela de conteúdos
+## Table of Contents
 =================
 
-   * [Sobre](#sobre)
-   * [Tabela de conteúdos](#tabela-de-conteúdos)
-   * [Descrição do Projeto](#-descrição-do-projeto)
-   * [Pré-requisitos](#prerequisitos)
-   * [Instalação](#-instalação)
-   * [Tecnologias](#-tecnologias)
-   * [Autor](#-autor)
+   * [About](#about)
+   * [Table of Contents](#table-of-contents)
+   * [Project Description](#-project-description)
+   * [Prerequisites](#-prerequisites)
+   * [Installation](#-installation)
+   * [Technologies](#-technologies)
+   * [Author](#-author)
 
 ---
 
-## 💻 Descrição do Projeto 
+## 💻 Project Description
 
-O projeto consiste em um *marketplace* simples de pedidos de pizzas que utiliza uma arquitetura distribuída baseada no uso do middleware de mensageria RabbitMQ, no qual há dois subsistemas principais: (a) o módulo de "Submissão de pedidos" e (b) o módulo da "Pizzaria".
+The project consists of a simple pizza restaurant *marketplace* which uses a distributed architecture based on the use of RabbitMQ messaging middleware. This system has two main subsystems: (a) the "Order Submission" module and (b) the "Pizzeria Front" module.
 
-O módulo de "Submissão" é responsável por gerar os pedidos e colocá-los em uma fila no *broker* RabbitMQ. Estes pedidos deverão ser atendidos por uma das pizzarias cadastradas no sistema (por meio do módulo "Pizzaria"), o qual é responsável por receber requisições de entrega de um dado sabor de pizza em um endereço.
+The "Order Submission" module is responsible for generating orders and placing them in a queue, managed by a RabbitMQ *broker*. These orders must be fulfilled by one of the pizzerias registered in the system. They are notified through the "Pizzeria Front" module, which is responsible for receiving delivery requests for a given pizza flavor at an address.
 
-Ao receber um pedido, o módulo "Pizzaria" então encaminha o pedido a um subsistema de notificações, que utiliza WebSockets para distribuir o alerta para todos os painéis de notificação (representados por uma página web).
+Upon receiving a request, the "Pizzeria Front" module then forwards the request to a notification subsystem, which uses WebSockets to distribute the alert to the notification panels (represented by a simple web page).
 
-Os módulos foram implementados e disponibilizados nos seguintes projetos:
-- [Rabbit Pizza (módulo Pizzaria)](https://github.com/rafaelfl/rabbitmq-front-sd-2021-2)
-- [Rabbit Pizza (módulo Submissão)](https://github.com/rafaelfl/rabbitmq-sd-2021-2)
+Both modules were implemented and made available in the following projects:
+- [Rabbit Pizza (Pizzeria Front module)](https://github.com/rafaelfl/rabbitmq-front-sd-2021-2)
+- [Rabbit Pizza (Order Submission module)](https://github.com/rafaelfl/rabbitmq-sd-2021-2)
 
-A arquitetura do sistema do sistema, conforme descrito, pode ser vista na figura a seguir.
+The architecture of the described system can be seen in the following image.
 
-![Arquitetura Geral do Rabbit Pizza](resources/rabbit_pizza.png)
+![General Architecture of Rabbit Pizza](resources/rabbit_pizza.png)
 
 ---
 
-<a name="prerequisitos"></a>
-## ⚙️ Pré-requisitos
+<a name="prerequisites"></a>
+## ⚙️ Prerequisites
 
-Antes de começar, você vai precisar ter instalado um *broker* RabbitMQ em algum endereço. Recomendo utilizar um *container* Docker, que pode ser instalado por meio do seguinte comando (considerando a última versão até o momento):
+Before starting, you will need a RabbitMQ *broker* installed at some address. I recommend using a Docker *container*, which can be installed using the following command (considering the latest version so far):
 
 ```
 docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.9-management
 ```
 
-Para ver o sistema funcionando, é importante já ter instalado, configurado e executado o módulo Pizzaria, disponível no seguinte [link](https://github.com/rafaelfl/rabbitmq-front-sd-2021-2)
+In order to see the system working, it is important to have already installed, configured and run the "Pizzeria Front" module, available at the following [link](https://github.com/rafaelfl/rabbitmq-front-sd-2021-2)
 
 ---
 
-## 🚀 Instalação
+## 🚀 Installation
 
-Após executar o *broker* RabbitMQ, baixe e configure o módulo Pizzaria, você deve baixar e configurar este projeto no arquivo .env, definindo na variável `BROKER_ADDRESS` o endereço ip do seu broker RabbitMQ (padrão localhost).
+After running the RabbitMQ *broker*, download and configure the "Pizzeria Front" module, you must download and configure the project's .env file, defining, in the `BROKER_ADDRESS` variable, the ip address of your RabbitMQ broker (the default localhost).
 
 ```bash
-# Clone este repositório
+# Clone this repository
 $ git clone https://github.com/rafaelfl/rabbitmq-sd-2021-2
 
-# Acesse a pasta do projeto no terminal/cmd
+# Access the project folder (using terminal/cmd)
 $ cd rabbitmq-sd-2021-2
 
-# Instale as dependências
+# Install the dependencies
 $ yarn install
 
-# Edite o arquivo .env com suas configurações
+# Edit the .env file with your configurations
 
-# Execute o módulo de submissão utilizando a seguinte sintaxe
-$ yarn start "SABOR DA PIZZA" "ENDEREÇO DE ENTREGA"
+# Run the "Order Submission" module using the following syntax
+$ yarn start "PIZZA FLAVOR" "DELIVERY ADDRESS"
 
 # Se você já estiver rodando o módulo Pizzaria, basta acessar o endereço <http://localhost:8080>
 # que você verá as notificações enviadas por meio deste projeto na página web. A cada execução
 # deste projeto (e envio de um novo pedido) será mostrada uma nova notificação no painel da
 # página web.
+
+
+# If you are already running the "Pizzeria Front" module, just access the address
+# <http://localhost:8080> to see the notifications sent through the "Order Submission"
+# module. Every order submitted will be shown on the web page.
 ```
 
 ---
 
-## 🛠 Tecnologias
+## 🛠 Technologies
 
-As seguintes ferramentas foram usadas na construção do projeto:
+The following technologies were used to build this project:
 
 - [Node.js](https://nodejs.org/en/)
 - [Yarn](https://yarnpkg.com/)
@@ -89,14 +94,14 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ---
 
-## 🦸 Autor
+## 🦸 Author
 
 <a href="https://github.com/rafaelfl/">
  <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/31193433?v=4" width="100px;" alt=""/>
  <br />
- <sub><b>Prof. Dr. Rafael Fernandes Lopes</b></sub></a>
+ <sub><b>Prof. Rafael Fernandes Lopes, Ph.D.</b></sub></a>
 
 
-Feito com 💜 por Rafael Fernandes Lopes
+Developed with 💜 by Rafael Fernandes Lopes
 
-[![Twitter Badge](https://img.shields.io/badge/-@rafaelf_l-1ca0f1?style=flat-square&labelColor=1ca0f1&logo=twitter&logoColor=white&link=https://twitter.com/rafaelf_l)](https://twitter.com/rafaelf_l) [![Linkedin Badge](https://img.shields.io/badge/-Rafael%20Fernandes%20Lopes-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/rafael-fernandes-lopes/)](https://www.linkedin.com/in/rafael-fernandes-lopes/)
+[![Linkedin Badge](https://img.shields.io/badge/-Rafael%20Fernandes%20Lopes-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/rafael-fernandes-lopes/)](https://www.linkedin.com/in/rafael-fernandes-lopes/)
