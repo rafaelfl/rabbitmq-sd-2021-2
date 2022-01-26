@@ -13,7 +13,7 @@
    * [About](#about)
    * [Table of Contents](#table-of-contents)
    * [Project Description](#-project-description)
-   * [Prerequisites](#-prerequisites)
+   * [Prerequisites](#prerequisites)
    * [Installation](#-installation)
    * [Technologies](#-technologies)
    * [Author](#-author)
